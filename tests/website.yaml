@@ -1,0 +1,20 @@
+pages:
+    Login:
+        validation:
+            login_wrapper:
+                XPATH: "//div[@class='login_wrapper']"
+            login_credentials_wrap:
+                XPATH: "//div[@class='login_credentials_wrap']"
+        locators:
+            username_input:
+                XPATH: "//input[@id='user-name']"
+            password_input:
+                XPATH: "//input[@id='password']"
+            login_button:
+                XPATH: "//input[@id='login-button']"
+    Inventory:
+        validation:
+            span_products:
+                XPATH: "//span[contains(@class,'title') and contains(normalize-space(), 'Products')]"
+            inventory_products:
+                XPATH: "//div[@class='inventory_container']"

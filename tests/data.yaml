@@ -1,0 +1,24 @@
+user:
+    valid:
+        username: "standard_user"
+        password: &common_password "secret_sauce"
+        first_name: "Julian"
+        last_name: "Calvert"
+        postal_code: "1407"
+    locked:
+        username: "locked_out_user"
+        password: *common_password
+    problem:
+        username: "problem_user"
+        password: *common_password
+    glitch:
+        username: "performance_glitch_user"
+        password: *common_password
+    error:
+        username: "error_user"
+        password: *common_password
+    visual:
+        username: "visual_user"
+        password: *common_password
+message:
+    locked_user_message: "Epic sadface: Sorry, this user has been locked out."
