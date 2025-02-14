@@ -18,3 +18,16 @@ pages:
                 XPATH: "//span[contains(@class,'title') and contains(normalize-space(), 'Products')]"
             inventory_products:
                 XPATH: "//div[@class='inventory_container']"
+        locators:
+            add_to_cart_buttons: 
+                XPATH: "//button[contains(@class, 'btn_inventory')]"
+            go_to_cart_icon:
+                XPATH: "//a[@class='shopping_cart_link']"
+            item_detail_links:
+                XPATH: "//div[@class='inventory_item_name']"
+            social_linkedin:
+                XPATH: "//li[@class='social_linkedin']/a"
+            social_facebook:
+                XPATH: "//li[@class='social_facebook']/a"
+            social_twiter:
+                XPATH: "//li[@class='social_twitterk']/a"

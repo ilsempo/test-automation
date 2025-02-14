@@ -1,10 +1,4 @@
-import csv
 import yaml
-
-def get_products():
-    with open("products2.csv", "r", newline='', encoding="utf-8") as csv_file:
-        reader = csv.DictReader(csv_file)
-        return [row["name"] for row in reader]
 
 def get_data():
     with open("data.yaml", "r", encoding="utf-8") as file:
@@ -32,5 +26,5 @@ def get_user_info(user_type):
 
 def get_message(key):
     data = get_data()
-    xpath_message_constructor = f"//*[text()='{data["message"][key]}']"
+    xpath_message_constructor = f"//*[text()='{data['message'][key]}']"
     return xpath_message_constructor
