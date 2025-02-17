@@ -1,3 +1,11 @@
+common_locators: &common_locators
+    social_linkedin:
+        XPATH: "//li[@class='social_linkedin']/a"
+    social_facebook:
+        XPATH: "//li[@class='social_facebook']/a"
+    social_twiter:
+        XPATH: "//li[@class='social_twitter']/a"
+
 pages:
     Login:
         validation:
@@ -19,15 +27,43 @@ pages:
             inventory_products:
                 XPATH: "//div[@class='inventory_container']"
         locators:
+            <<: *common_locators
             add_to_cart_buttons: 
                 XPATH: "//button[contains(@class, 'btn_inventory')]"
             go_to_cart_icon:
                 XPATH: "//a[@class='shopping_cart_link']"
             item_detail_links:
                 XPATH: "//div[@class='inventory_item_name']"
-            social_linkedin:
-                XPATH: "//li[@class='social_linkedin']/a"
-            social_facebook:
-                XPATH: "//li[@class='social_facebook']/a"
-            social_twiter:
-                XPATH: "//li[@class='social_twitterk']/a"
+    Cart:
+        validation:
+            cart_title: 
+                XPATH: "//span[contains(@class, 'title') and normalize-space()='Your Cart']"
+            content_container:
+                XPATH: "//div[@id='cart_contents_container']"
+        locators:
+            <<: *common_locators
+            checkout_button:
+                XPATH: "//button[@id='checkout']"
+            item_titles:
+                XPATH: "//div[@class='inventory_item_name']"
+            continue_shopping_button:
+                XPATH: "//button[@id='continue-shopping']"
+            remove_item_button:
+                XPATH: "//button[@id='remove-sauce-labs-bike-light']"
+    Checkout:
+        validation:
+            checkout_title:
+                XPATH: "//span[contains(@class, 'title') and contains(@data-test, 'title')]"
+            checkout_container:
+                XPATH: "//div[@id='checkout_info_container']"
+        locators:
+            first_name_input:   
+                XPATH: "//input[@id='first-name']"
+            last_name_input:   
+                XPATH: "//input[@id='last-name']"
+            postal_code_input:
+                XPATH: "//input[@id='postal-code']"
+            error_message_container: 
+                XPATH: "//div[contains(@class, 'error-message-container')]"
+            continue_checkout:
+                XPATH: "//input[@id='continue']"

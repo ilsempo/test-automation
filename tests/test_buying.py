@@ -9,4 +9,4 @@ def test_buying_process(driver):
     add_products_to_cart(driver)
     go_to_cart(driver)
     checkout(driver)
-    assert verify_success(driver)
+    verify_success(driver)

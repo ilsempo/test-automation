@@ -22,3 +22,4 @@ user:
         password: *common_password
 message:
     locked_user_message: "Epic sadface: Sorry, this user has been locked out."
+    success_buy_message: "Thank you for your order!"
