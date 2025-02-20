@@ -26,5 +26,5 @@ def get_user_info(user_type):
 
 def get_message(key):
     data = get_data()
-    xpath_message_constructor = f"//*[text()='{data['message'][key]}']"
-    return xpath_message_constructor
+    message = data['message'][key]
+    return message

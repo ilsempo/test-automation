@@ -20,6 +20,7 @@ pages:
                 XPATH: "//input[@id='password']"
             login_button:
                 XPATH: "//input[@id='login-button']"
+        url: ""
     Inventory:
         validation:
             span_products:
@@ -34,6 +35,7 @@ pages:
                 XPATH: "//a[@class='shopping_cart_link']"
             item_detail_links:
                 XPATH: "//div[@class='inventory_item_name']"
+        url: "inventory.html"
     Cart:
         validation:
             cart_title: 
@@ -50,6 +52,7 @@ pages:
                 XPATH: "//button[@id='continue-shopping']"
             remove_item_button:
                 XPATH: "//button[@id='remove-sauce-labs-bike-light']"
+        url: "cart.html"
     Checkout:
         validation:
             checkout_title:
@@ -67,3 +70,4 @@ pages:
                 XPATH: "//div[contains(@class, 'error-message-container')]"
             continue_checkout:
                 XPATH: "//input[@id='continue']"
+        url: "checkout-step-one.html"

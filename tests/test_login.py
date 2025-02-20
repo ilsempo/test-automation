@@ -9,11 +9,11 @@ class TestLogin:
         """
         Scenario: User logs in successfully
         """
-        login(driver, return_result=True)
+        login(driver)
 
     @pytest.mark.login_invalid
     def test_login_invalid(self, driver):
         """
         Scenario: Locked user fails logging in
         """
-        login(driver, "locked", return_result=True)
+        login(driver, "locked")
