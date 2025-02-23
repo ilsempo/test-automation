@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from functions.utils import get_xpath, get_message
+from utils.utils import get_xpath, get_message
 
 def page_loads(driver, page):
     page_validators = get_xpath(page, validation=True)

@@ -1,12 +1,12 @@
 import yaml
 
 def get_data():
-    with open("data.yaml", "r", encoding="utf-8") as file:
+    with open("data\data.yaml", "r", encoding="utf-8") as file:
         data = yaml.load(file, Loader=yaml.FullLoader)
         return data
 
 def get_website():
-    with open("website.yaml", "r", encoding="utf-8") as file:
+    with open("data/website.yaml", "r", encoding="utf-8") as file:
         data = yaml.load(file, Loader=yaml.FullLoader)
         return data
     

@@ -1,8 +1,7 @@
 import pytest
-from functions.login import login
-from functions.cart import add_products_to_cart, go_to_cart
-from functions.checkout import checkout
-from functions.page_validations import verify_message
+from steps.action_steps import login, add_products_to_cart, checkout
+from steps.navigation_steps import go_to_cart
+from steps.validation_steps import verify_message
 
 @pytest.mark.buy
 class TestBuying:

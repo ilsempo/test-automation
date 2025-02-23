@@ -1,5 +1,5 @@
 import pytest
-from functions.login import login
+from steps.action_steps import login
 
 @pytest.mark.login
 class TestLogin:
