@@ -5,6 +5,10 @@ common_locators: &common_locators
         XPATH: "//li[@class='social_facebook']/a"
     social_twiter:
         XPATH: "//li[@class='social_twitter']/a"
+    app_logo:
+        XPATH: "//div[@class='app_logo']"
+    burguer_button:
+        XPATH: "//button[@id='react-burger-menu-btn']"
 
 pages:
     Login:
@@ -33,8 +37,12 @@ pages:
                 XPATH: "//button[contains(@class, 'btn_inventory')]"
             go_to_cart_icon:
                 XPATH: "//a[@class='shopping_cart_link']"
-            item_detail_links:
-                XPATH: "//div[@class='inventory_item_name']"
+            item_name:
+                XPATH: &item_name_locator "//div[@class='inventory_item_name ']"
+            item_description:
+                XPATH: &item_description_locator "//div[@class='inventory_item_desc']"
+            item_price:
+                XPATH: &item_price_locator "//div[@class='inventory_item_price']"
         url: "inventory.html"
     Cart:
         validation:
@@ -53,13 +61,14 @@ pages:
             remove_item_button:
                 XPATH: "//button[@id='remove-sauce-labs-bike-light']"
         url: "cart.html"
-    Checkout:
+    CheckoutOne:
         validation:
             checkout_title:
                 XPATH: "//span[contains(@class, 'title') and contains(@data-test, 'title')]"
             checkout_container:
                 XPATH: "//div[@id='checkout_info_container']"
         locators:
+            <<: *common_locators
             first_name_input:   
                 XPATH: "//input[@id='first-name']"
             last_name_input:   
@@ -71,3 +80,27 @@ pages:
             continue_checkout:
                 XPATH: "//input[@id='continue']"
         url: "checkout-step-one.html"
+    CheckoutTwo:
+        validation:
+            qty_element:
+                XPATH: "//div[contains(@class,'cart_quantity_label') and contains(@data-test, 'cart-quantity-label')]"
+            description_element:
+                XPATH: "//div[contains(@class,'cart_desc_label') and contains(@data-test, 'cart-desc-label')]"
+            cart_list_container:
+                XPATH: "//div[contains(@class,'cart_list') and contains(@data-test, 'cart-list')]"
+        locators:
+            <<: *common_locators
+            item_name:
+                XPATH: *item_name_locator
+            item_description:
+                XPATH: *item_description_locator
+            item_price:
+                XPATH: *item_price_locator
+            finish_checkout:
+                XPATH: "//button[@id='finish']"
+            summary_subotal:
+                XPATH: "//div[@class='summary_subtotal_label']"
+            summary_tax:
+                XPATH: "//div[@class='summary_tax_label']"
+            summary_total:
+                XPATH: "//div[@class='summary_total_label']"

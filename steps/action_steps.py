@@ -13,9 +13,9 @@ def add_products_to_cart(driver):
 def checkout(driver):
     user_info = get_user_info("valid")
     cart_page_locators = get_xpath("Cart")
-    checkout_page_locators = get_xpath("Checkout")
+    checkout_page_locators = get_xpath("CheckoutOne")
     driver.find_element(By.XPATH, cart_page_locators["checkout_button"]).click()
-    page_loads(driver, "Checkout")
+    page_loads(driver, "CheckoutOne")
     checkout_data = {
         "first_name_input": "first_name",
         "last_name_input" : "last_name",
@@ -37,3 +37,7 @@ def login(driver, credentials="valid"):
         verify_message(driver, "locked_user_message")
     else:
         page_loads(driver, "Inventory")
+
+def clicks(driver, page, element):
+    locators = get_xpath(page)
+    driver.find_element(By.XPATH, locators[element]).click()
