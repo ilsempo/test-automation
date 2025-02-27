@@ -104,3 +104,4 @@ pages:
                 XPATH: "//div[@class='summary_tax_label']"
             summary_total:
                 XPATH: "//div[@class='summary_total_label']"
+        url: "checkout-step-two.html"
