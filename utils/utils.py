@@ -1,5 +1,6 @@
 import yaml
 import logging
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
 
 def get_data():
     with open("data/data.yaml", "r", encoding="utf-8") as file:
@@ -42,9 +43,12 @@ def log_step(func):
                 if step_name == "fill_form_with_data":
                     data = args[0]
                     for key, value in data.items():
-                        logging.info(f"\033[36m| {key} | {value} |\033[0m")
+                        logging.info(f"\033[36m      | {key} -> {value} |\033[0m")
+        except (TimeoutException, NoSuchElementException, WebDriverException) as e:
+            logging.error(f"\033[31m{step_name} - Error with locator: {e}\033[0m")
+            raise
         except Exception as e:
             if not is_internal:
                 logging.error(f"\033[31m{step_name} - {str(e)}\033[0m")
-            raise e
+            raise
     return wrapper

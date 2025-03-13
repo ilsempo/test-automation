@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from utils.utils import get_xpath, get_user_info, log_step
-from steps.validation_steps import page_loads, verify_message
+from steps.validation_steps import page_loads, message_is_displayed, user_is_in_page
 import random
 
 @log_step
@@ -26,12 +26,15 @@ def fill_form_with_data(driver, data: dict[str, str | int], user_type="valid"):
         driver.find_element(By.XPATH, checkout_page_locators[locator]).send_keys(user_info[enter_data])
 
 @log_step
-def finish_checkout(driver):
+def finish_checkout(driver, credentials="valid"):
     checkout_page_locators = get_xpath("CheckoutOne")
     checkout_page_two_locators= get_xpath("CheckoutTwo")
     driver.find_element(By.XPATH, checkout_page_locators["continue_checkout"]).click()
-    page_loads(driver, "CheckoutTwo", is_internal=True)
-    driver.find_element(By.XPATH, checkout_page_two_locators["finish_checkout"]).click()
+    if credentials == "problem":
+        user_is_in_page(driver, "CheckoutOne", is_internal=True)
+    else:
+        page_loads(driver, "CheckoutTwo", is_internal=True)
+        driver.find_element(By.XPATH, checkout_page_two_locators["finish_checkout"]).click()
 
 @log_step
 def login(driver, credentials="valid"):
@@ -42,7 +45,7 @@ def login(driver, credentials="valid"):
     driver.find_element(By.XPATH, locators["password_input"]).send_keys(user_info["password"])
     driver.find_element(By.XPATH, locators["login_button"]).click()
     if credentials == "locked":
-        verify_message(driver, "locked_user_message", is_internal=True)
+        message_is_displayed(driver, "locked_user_message", is_internal=True)
     else:
         page_loads(driver, "Inventory", is_internal=True)
 

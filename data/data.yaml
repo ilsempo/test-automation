@@ -11,6 +11,9 @@ user:
     problem:
         username: "problem_user"
         password: *common_password
+        first_name: "Heraldo"
+        last_name: "Merkel"
+        postal_code: "1825"
     glitch:
         username: "performance_glitch_user"
         password: *common_password
@@ -23,3 +26,4 @@ user:
 message:
     locked_user_message: "Epic sadface: Sorry, this user has been locked out."
     success_buy_message: "Thank you for your order!"
+    last_name_missing: "Error: Last Name is required"
