@@ -1,7 +1,6 @@
 import yaml
 import logging
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
-import time
 
 def get_data():
     with open("data/data.yaml", "r", encoding="utf-8") as file:
