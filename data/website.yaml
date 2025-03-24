@@ -43,6 +43,16 @@ pages:
                 XPATH: &item_description_locator "//div[@class='inventory_item_desc']"
             item_price:
                 XPATH: &item_price_locator "//div[@class='inventory_item_price']"
+            sort_select:
+                XPATH: "//select[@class='product_sort_container']"
+            sort_az:
+                XPATH: "//option[@value='az']"
+            sort_za:
+                XPATH: "//option[@value='za']"
+            sort_lohi:
+                XPATH: "//option[@value='lohi']"
+            sort_hilo:
+                XPATH: "//option[@value='hilo']"
         url: "inventory.html"
     Cart:
         validation:

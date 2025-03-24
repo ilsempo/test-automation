@@ -53,3 +53,11 @@ def login(driver, credentials="valid"):
 def user_clicks(driver, page, element):
     locators = get_xpath(page)
     driver.find_element(By.XPATH, locators[element]).click()
+
+@log_step
+def user_sorts_by(driver, page, criteria):
+    locators = get_xpath(page)
+    sort_select = locators["sort_select"]
+    user_clicks(driver, page, sort_select, is_internal=True)
+    user_clicks(driver, page, criteria)
+    ##contiune here
