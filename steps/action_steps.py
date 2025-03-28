@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from utils.utils import get_xpath, get_user_info, log_step
 from steps.validation_steps import page_loads, message_is_displayed, user_is_in_page
 import random
+import logging
 
 @log_step
 def add_products_to_cart(driver):
@@ -50,14 +51,19 @@ def login(driver, credentials="valid"):
         page_loads(driver, "Inventory", is_internal=True)
 
 @log_step
-def user_clicks(driver, page, element):
+def user_clicks(driver, page, element, is_internal=False):
     locators = get_xpath(page)
     driver.find_element(By.XPATH, locators[element]).click()
 
 @log_step
 def user_sorts_by(driver, page, criteria):
     locators = get_xpath(page)
-    sort_select = locators["sort_select"]
-    user_clicks(driver, page, sort_select, is_internal=True)
-    user_clicks(driver, page, criteria)
-    ##contiune here
+    user_clicks(driver, page, "sort_select", is_internal=True)
+    user_clicks(driver, page, criteria, is_internal=True)
+    item_names = driver.find_elements(By.XPATH, locators["item_name"])
+    items = [item.text for item in item_names]
+    if criteria == "sort_az":
+        sorted_item_names = sorted(items)
+    elif criteria == "sort_za":
+        sorted_item_names = sorted(items, reverse=True)
+    assert items == sorted_item_names

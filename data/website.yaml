@@ -44,7 +44,7 @@ pages:
             item_price:
                 XPATH: &item_price_locator "//div[@class='inventory_item_price']"
             sort_select:
-                XPATH: "//select[@class='product_sort_container']"
+                XPATH: "//span[@class='select_container']"
             sort_az:
                 XPATH: "//option[@value='az']"
             sort_za:
