@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 from utils.utils import get_xpath, get_user_info, log_step
 from steps.validation_steps import page_loads, message_is_displayed, user_is_in_page
 import random
-import logging
 
 @log_step
 def add_products_to_cart(driver):
@@ -53,17 +52,23 @@ def login(driver, credentials="valid"):
 @log_step
 def user_clicks(driver, page, element, is_internal=False):
     locators = get_xpath(page)
-    driver.find_element(By.XPATH, locators[element]).click()
+    element_to_click = driver.find_elements(By.XPATH, locators[element])
+    element_to_click = random.choice(element_to_click)
+    element_to_click.click()
 
 @log_step
 def user_sorts_by(driver, page, criteria):
     locators = get_xpath(page)
     user_clicks(driver, page, "sort_select", is_internal=True)
     user_clicks(driver, page, criteria, is_internal=True)
-    item_names = driver.find_elements(By.XPATH, locators["item_name"])
-    items = [item.text for item in item_names]
-    if criteria == "sort_az":
-        sorted_item_names = sorted(items)
-    elif criteria == "sort_za":
-        sorted_item_names = sorted(items, reverse=True)
-    assert items == sorted_item_names
+    if criteria in ("sort_az", "sort_za"):
+        item_names_or_prices = driver.find_elements(By.XPATH, locators["item_name"])
+        items = [item.text for item in item_names_or_prices]
+    elif criteria in ("sort_lohi", "sort_hilo"):
+        item_names_or_prices = driver.find_elements(By.XPATH, locators["item_price"])
+        items = [float(item.text.replace("$", "")) for item in item_names_or_prices]
+    if criteria in ("sort_az", "sort_lohi"):
+        sorted_items = sorted(items)
+    elif criteria in ("sort_za", "sort_hilo"):
+        sorted_items = sorted(items, reverse=True)
+    assert items == sorted_items, f"Items not sorted as expected for {criteria}.\nActual: {items}\nExpected: {sorted_items}"

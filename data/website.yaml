@@ -117,3 +117,12 @@ pages:
             cancel_button:
                 XPATH: "//button[contains(@class, 'cart_cancel_link') and contains(@data-test, 'cancel')]"
         url: "checkout-step-two.html"
+    InventoryDetail:
+        validation:
+            inventory_detail_img:
+                XPATH: "//img[@class='inventory_details_img']"
+            inventory_detail_name:
+                XPATH: "//div[contains(@class, 'inventory_details_name')]"
+            add_to_cart_button: 
+                XPATH: "//button[@id='add-to-cart']"
+        url: "inventory-item.html"

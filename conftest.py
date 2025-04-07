@@ -1,6 +1,7 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import logging
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -17,3 +18,7 @@ def driver(request):
     driver.get("https://www.saucedemo.com/")
     yield driver
     driver.quit()
+
+@pytest.fixture(autouse=True)
+def print_test_name(request):
+    logging.info(f"\033[90m>> Executing test: {request.node.name}\033[0m")
