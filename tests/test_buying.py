@@ -1,6 +1,6 @@
 import pytest
-from steps.action_steps import login, add_products_to_cart, start_checkout, fill_form_with_data, finish_checkout, user_clicks
-from steps.navigation_steps import go_to_cart
+from steps.action_steps import login, add_products_to_cart, fill_form_with_data, user_clicks
+from steps.navigation_steps import go_to_cart, finish_checkout
 from steps.validation_steps import message_is_displayed, user_is_in_page
 
 @pytest.mark.buy
@@ -14,7 +14,7 @@ class TestBuying:
         login(driver)
         add_products_to_cart(driver)
         go_to_cart(driver)
-        start_checkout(driver)
+        user_clicks(driver, "Cart", "checkout_button")
         fill_form_with_data(driver, {
         "first_name_input": "first_name",
         "last_name_input" : "last_name",
@@ -31,7 +31,7 @@ class TestBuying:
         login(driver, "problem")
         add_products_to_cart(driver)
         go_to_cart(driver)
-        start_checkout(driver)
+        user_clicks(driver, "Cart", "checkout_button")
         fill_form_with_data(driver, {
         "first_name_input": "first_name",
         "last_name_input" : "last_name",
@@ -48,7 +48,7 @@ class TestBuying:
         login(driver)
         add_products_to_cart(driver)
         go_to_cart(driver)
-        start_checkout(driver)
+        user_clicks(driver, "Cart", "checkout_button")
         fill_form_with_data(driver, {
         "first_name_input": "first_name",
         "last_name_input" : "last_name",

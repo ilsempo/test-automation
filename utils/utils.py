@@ -32,6 +32,20 @@ def get_message(key):
     message = data['message'][key]
     return message
 
+def logging_adjustments(step_name, args):
+    basic_logging = f"\033[92m{step_name}\033[0m"
+    if step_name == "user_sorts_by":
+        basic_logging = f"\033[92m{step_name} \033[0m\033[36m-> {args[1]}\033[0m"
+    logging.info(basic_logging)
+    if step_name == "fill_form_with_data":
+        data = args[0]
+        max_key_lenght = max(len(key) for key in data)
+        max_value_lenght = max(len(value) for value in data.values())
+        for key, value in data.items():
+            key_string = key.ljust(max_key_lenght)
+            value_string = value.ljust(max_value_lenght)
+            logging.info(f"\033[36m   | {key_string} -> {value_string} |\033[0m")
+
 def log_step(func):
     def wrapper(driver, *args, **kwargs):
         step_name = func.__name__
@@ -39,17 +53,7 @@ def log_step(func):
         try:
             func(driver, *args, **kwargs)
             if not is_internal:
-                sort_step = step_name == "user_sorts_by"
-                basic_logging = f"\033[92m{step_name}\033[0m" if not sort_step else f"\033[92m{step_name} \033[0m\033[36m-> {args[1]}\033[0m"
-                logging.info(basic_logging)
-                if step_name == "fill_form_with_data":
-                    data = args[0]
-                    max_key_lenght = max(len(key) for key in data)
-                    max_value_lenght = max(len(value) for value in data.values())
-                    for key, value in data.items():
-                        key_string = key.ljust(max_key_lenght)
-                        value_string = value.ljust(max_value_lenght)
-                        logging.info(f"\033[36m   | {key_string} -> {value_string} |\033[0m")
+                logging_adjustments(step_name, args)
         except (TimeoutException, NoSuchElementException, WebDriverException) as e:
             logging.error(f"\033[31m{step_name} - Error with locator: {e}\033[0m")
             raise

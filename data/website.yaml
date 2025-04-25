@@ -8,7 +8,9 @@ common_locators: &common_locators
     app_logo:
         XPATH: "//div[@class='app_logo']"
     burguer_button:
-        XPATH: "//button[@id='react-burger-menu-btn']"
+        XPATH: "//div[@class='bm-burger-button']"
+    logout_link:
+        XPATH: "//a[contains(@class, 'bm-item') and @data-test='logout-sidebar-link']"
 
 pages:
     Login:

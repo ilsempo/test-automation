@@ -11,6 +11,7 @@ def pytest_addoption(parser):
 @pytest.fixture
 def driver(request):
     chrome_options = Options()
+    chrome_options.add_argument("--incognito")
     if request.config.getoption("--headless"):
         chrome_options.add_argument("--headless")
     driver = webdriver.Chrome(options=chrome_options)
