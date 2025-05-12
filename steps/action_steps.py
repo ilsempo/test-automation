@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from utils.utils import get_xpath, get_user_info, log_step
 from steps.validation_steps import page_loads, message_is_displayed
 import random
+import time
 
 @log_step
 def add_products_to_cart(driver):
@@ -33,11 +34,12 @@ def login(driver, credentials="valid"):
         page_loads(driver, "Inventory", is_internal=True)
 
 #FIXME
-# @log_step
-# def logout(driver):
-#     user_clicks(driver, "Inventory", "burguer_button", is_internal=True)
-#     user_clicks(driver, "Inventory", "logout_link", is_internal=True)
-#     page_loads(driver, "Login", is_internal=True)
+@log_step
+def logout(driver):
+    user_clicks(driver, "Inventory", "burguer_button", is_internal=True)
+    time.sleep(10)
+    user_clicks(driver, "Inventory", "logout_link", is_internal=True)
+    page_loads(driver, "Login", is_internal=True)
 
 @log_step
 def user_clicks(driver, page, element, is_internal=False):
