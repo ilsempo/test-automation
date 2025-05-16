@@ -10,25 +10,23 @@ def pytest_addoption(parser):
         "-H", "--headless", action="store_true", default=False, help="Run tests in headless mode"
     )
     parser.addoption(
-        "-B", "--browser", action="store", default="chrome", help="Specify browser: chrome or firefox"
+        "-B", "--mybrowser", action="store", default="chrome", help="Specify browser: chrome or firefox"
     )
 
 @pytest.fixture
 def driver(request):
-    browser = request.config.getoption("--browser")
+    browser = request.config.getoption("--mybrowser")
     headless = request.config.getoption("--headless")
 
     if browser == 'chrome':
         options = ChromeOptions()
         if headless:
             options.add_argument("--headless")
-        options.add_argument("--incognito")
         driver = webdriver.Chrome(options=options)
     elif browser == 'firefox':
         options = FirefoxOptions()
         if headless:
             options.add_argument("--headless")
-        options.add_argument("-private-window")
         driver = webdriver.Firefox(options=options)
 
     driver.maximize_window()
