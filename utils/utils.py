@@ -1,6 +1,8 @@
 import yaml
 import logging
-from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def get_data():
     with open("data/data.yaml", "r", encoding="utf-8") as file:
@@ -32,6 +34,18 @@ def get_message(key):
     message = data['message'][key]
     return message
 
+def safe_find_element(driver, by, locator):
+    try:
+        elements = WebDriverWait(driver, 15).until(
+            EC.presence_of_all_elements_located((by, locator))
+        )
+        if not elements:
+            raise NoSuchElementException()
+        return elements if len(elements) > 1 else elements[0]
+    except (TimeoutException, NoSuchElementException) as e:
+        logging.error(f"\033[31m[find_element error] | Locator: {by}='{locator}'\nMessage: {e}\033[0m")
+        raise
+
 def logging_adjustments(step_name, args):
     basic_logging = f"\033[92m{step_name}\033[0m"
     if step_name == "user_sorts_by":
@@ -54,9 +68,9 @@ def log_step(func):
             func(driver, *args, **kwargs)
             if not is_internal:
                 logging_adjustments(step_name, args)
-        except (TimeoutException, NoSuchElementException, WebDriverException) as e:
-            logging.error(f"\033[31m{step_name} - Error with locator: {e}\033[0m")
-            raise
+        # except (TimeoutException, NoSuchElementException, WebDriverException) as e:
+        #     logging.error(f"\033[31m{step_name} - Error with locator: {e}\033[0m")
+        #     raise
         except Exception as e:
             if not is_internal:
                 logging.error(f"\033[31m{step_name} - {str(e)}\033[0m")

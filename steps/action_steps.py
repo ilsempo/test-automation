@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from utils.utils import get_xpath, get_user_info, log_step
+from utils.utils import get_xpath, get_user_info, log_step, safe_find_element
 from steps.validation_steps import page_loads, message_is_displayed
 import random
 import time
@@ -25,27 +25,28 @@ def login(driver, credentials="valid"):
     locators = get_xpath("Login")
     user_info = get_user_info(credentials)
     page_loads(driver, "Login", is_internal=True)
-    driver.find_element(By.XPATH, locators["username_input"]).send_keys(user_info["username"])
-    driver.find_element(By.XPATH, locators["password_input"]).send_keys(user_info["password"])
-    driver.find_element(By.XPATH, locators["login_button"]).click()
+    safe_find_element(driver, By.XPATH, locators["username_input"]).send_keys(user_info["username"])
+    safe_find_element(driver, By.XPATH, locators["password_input"]).send_keys(user_info["password"])
+    safe_find_element(driver, By.XPATH, locators["login_button"]).click()
     if credentials == "locked":
         message_is_displayed(driver, "locked_user_message", is_internal=True)
     else:
         page_loads(driver, "Inventory", is_internal=True)
 
-#FIXME
 @log_step
 def logout(driver):
     user_clicks(driver, "Inventory", "burguer_button", is_internal=True)
-    time.sleep(10)
+    time.sleep(10) #FIXME
     user_clicks(driver, "Inventory", "logout_link", is_internal=True)
     page_loads(driver, "Login", is_internal=True)
 
+#FIXME
 @log_step
 def user_clicks(driver, page, element, is_internal=False):
     locators = get_xpath(page)
-    element_to_click = driver.find_elements(By.XPATH, locators[element])
-    element_to_click = random.choice(element_to_click)
+    element_to_click = safe_find_element(driver, By.XPATH, locators[element])
+    if isinstance(element_to_click, list):
+        element_to_click = random.choice(element_to_click)
     element_to_click.click()
 
 @log_step
