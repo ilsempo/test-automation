@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 from utils.utils import get_xpath, get_user_info, log_step, safe_find_element
 from steps.validation_steps import page_loads, message_is_displayed
 import random
-import time
 
 @log_step
 def add_products_to_cart(driver):
