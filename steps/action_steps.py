@@ -1,7 +1,8 @@
 from selenium.webdriver.common.by import By
-from utils.utils import get_xpath, get_user_info, log_step, safe_find_element
+from utils.utils import get_xpath, get_user_info, log_step, safe_find_element, safe_is_displayed
 from steps.validation_steps import page_loads, message_is_displayed
 import random
+import logging
 
 @log_step
 def add_products_to_cart(driver):
@@ -44,7 +45,8 @@ def user_clicks(driver, page, element, is_internal=False):
     element_to_click = safe_find_element(driver, By.XPATH, locators[element])
     if isinstance(element_to_click, list):
         element_to_click = random.choice(element_to_click)
-    if element_to_click.is_displayed():
+    logging.info(element_to_click.is_displayed())
+    if safe_is_displayed(element_to_click):
         element_to_click.click()
 
 @log_step

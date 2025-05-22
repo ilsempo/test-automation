@@ -3,6 +3,7 @@ import logging
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
 
 def get_data():
     with open("data/data.yaml", "r", encoding="utf-8") as file:
@@ -43,6 +44,15 @@ def safe_find_element(driver, by, locator):
     except (TimeoutException, NoSuchElementException) as e:
         logging.error(f"\033[31m[find_element error] | Locator: {by}='{locator}'\nMessage: {e}\033[0m")
         raise
+
+def safe_is_displayed(element, max_retries = 3, delay = 0.5):
+    retries = 0
+    while retries < max_retries:
+        if element.is_displayed():
+            return True
+        time.sleep(delay)
+        retries += 1
+    return False
 
 def logging_adjustments(step_name, args):
     basic_logging = f"\033[92m{step_name}\033[0m"
