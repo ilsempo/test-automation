@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from utils.utils import get_xpath, get_message, log_step
+from utils.utils import get_xpath, get_message, log_step, safe_find_element
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -12,7 +12,7 @@ def page_loads(driver, page, is_internal=False):
 @log_step
 def message_is_displayed(driver, message, is_internal=False):
     message = get_message(message)
-    assert driver.find_element(By.XPATH, f"//*[text()='{message}']").is_displayed()
+    assert safe_find_element(driver, By.XPATH, f"//*[text()='{message}']").is_displayed()
 
 @log_step
 def user_is_in_page(driver, page, is_internal=False):
