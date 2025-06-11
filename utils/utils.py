@@ -1,6 +1,6 @@
 import yaml
 import logging
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
@@ -48,8 +48,11 @@ def safe_find_element(driver, by, locator):
 def safe_is_displayed(element, max_retries = 3, delay = 0.5):
     retries = 0
     while retries < max_retries:
-        if element.is_displayed():
-            return True
+        try:
+            if element.is_displayed():
+                return True
+        except (StaleElementReferenceException, NoSuchElementException) as e:
+            logging.info(f"{type(e).__name__} - retrying...")
         time.sleep(delay)
         retries += 1
     return False
@@ -57,9 +60,9 @@ def safe_is_displayed(element, max_retries = 3, delay = 0.5):
 def logging_adjustments(step_name, args):
     basic_logging = f"\033[92m{step_name}\033[0m"
     if step_name == "user_sorts_by":
-        basic_logging = f"\033[92m{step_name} \033[0m\033[36m-> {args[1]}\033[0m"
-    logging.info(basic_logging)
-    if step_name == "fill_form_with_data":
+        logging.info(f"\033[92m{step_name} \033[0m\033[36m-> {args[1]}\033[0m")
+    elif step_name == "fill_form_with_data":
+        logging.info(basic_logging)
         data = args[0]
         max_key_lenght = max(len(key) for key in data)
         max_value_lenght = max(len(value) for value in data.values())
@@ -67,6 +70,13 @@ def logging_adjustments(step_name, args):
             key_string = key.ljust(max_key_lenght)
             value_string = value.ljust(max_value_lenght)
             logging.info(f"\033[36m   | {key_string} -> {value_string} |\033[0m")
+    elif step_name == "user_clicks":
+        logging.info(f"\033[92m{step_name}\033[0m\033[36m {args[1]}\033[0m\033[92m element\033[0m")
+    elif step_name == "login":
+        user = args[0] if args else "valid"
+        logging.info(f"\033[92m{step_name}\033[0m\033[36m {user}\033[0m\033[92m user\033[0m")
+    else:
+        logging.info(basic_logging)
 
 def log_step(func):
     def wrapper(driver, *args, **kwargs):

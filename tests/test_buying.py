@@ -1,6 +1,6 @@
 import pytest
-from steps.action_steps import login, add_products_to_cart, fill_form_with_data, user_clicks
-from steps.navigation_steps import go_to_cart, finish_checkout
+from steps.action_steps import add_products_to_cart, fill_form_with_data, user_clicks
+from steps.navigation_steps import go_to_cart, finish_checkout, login
 from steps.validation_steps import message_is_displayed, user_is_in_page
 
 @pytest.mark.buy

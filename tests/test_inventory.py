@@ -1,5 +1,6 @@
 import pytest
-from steps.action_steps import login, user_sorts_by, user_clicks
+from steps.action_steps import user_sorts_by, user_clicks
+from steps.navigation_steps import login
 from steps.validation_steps import page_loads
 
 @pytest.mark.inventory

@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from utils.utils import get_xpath, get_user_info, log_step, safe_find_element, safe_is_displayed
-from steps.validation_steps import page_loads, message_is_displayed
+from steps.validation_steps import page_loads
 import random
 import logging
 
@@ -21,19 +21,6 @@ def fill_form_with_data(driver, data: dict[str, str | int], user_type="valid"):
         safe_find_element(driver, By.XPATH, checkout_page_locators[locator]).send_keys(user_info[enter_data])
 
 @log_step
-def login(driver, credentials="valid"):
-    locators = get_xpath("Login")
-    user_info = get_user_info(credentials)
-    page_loads(driver, "Login", is_internal=True)
-    safe_find_element(driver, By.XPATH, locators["username_input"]).send_keys(user_info["username"])
-    safe_find_element(driver, By.XPATH, locators["password_input"]).send_keys(user_info["password"])
-    safe_find_element(driver, By.XPATH, locators["login_button"]).click()
-    if credentials == "locked":
-        message_is_displayed(driver, "locked_user_message", is_internal=True)
-    else:
-        page_loads(driver, "Inventory", is_internal=True)
-
-@log_step
 def logout(driver):
     user_clicks(driver, "Inventory", "burguer_button", is_internal=True)
     user_clicks(driver, "Inventory", "logout_link", is_internal=True)
@@ -45,7 +32,6 @@ def user_clicks(driver, page, element, is_internal=False):
     element_to_click = safe_find_element(driver, By.XPATH, locators[element])
     if isinstance(element_to_click, list):
         element_to_click = random.choice(element_to_click)
-    logging.info(element_to_click.is_displayed())
     if safe_is_displayed(element_to_click):
         element_to_click.click()
 

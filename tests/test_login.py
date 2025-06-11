@@ -1,5 +1,6 @@
 import pytest
-from steps.action_steps import login, logout, user_clicks
+from steps.action_steps import logout, user_clicks
+from steps.navigation_steps import login
 
 @pytest.mark.login
 class TestLogin:
