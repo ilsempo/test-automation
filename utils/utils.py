@@ -4,6 +4,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import log_handler
 
 def get_data():
     with open("data/data.yaml", "r", encoding="utf-8") as file:
@@ -58,25 +59,10 @@ def safe_is_displayed(element, max_retries = 3, delay = 0.5):
     return False
 
 def logging_adjustments(step_name, args):
-    basic_logging = f"\033[92m{step_name}\033[0m"
-    if step_name == "user_sorts_by":
-        logging.info(f"\033[92m{step_name} \033[0m\033[36m-> {args[1]}\033[0m")
-    elif step_name == "fill_form_with_data":
-        logging.info(basic_logging)
-        data = args[0]
-        max_key_lenght = max(len(key) for key in data)
-        max_value_lenght = max(len(value) for value in data.values())
-        for key, value in data.items():
-            key_string = key.ljust(max_key_lenght)
-            value_string = value.ljust(max_value_lenght)
-            logging.info(f"\033[36m   | {key_string} -> {value_string} |\033[0m")
-    elif step_name == "user_clicks":
-        logging.info(f"\033[92m{step_name}\033[0m\033[36m {args[1]}\033[0m\033[92m element\033[0m")
-    elif step_name == "login":
-        user = args[0] if args else "valid"
-        logging.info(f"\033[92m{step_name}\033[0m\033[36m {user}\033[0m\033[92m user\033[0m")
+    if step_name in log_handler.step_handlers:
+        log_handler.step_handlers[step_name](args, step_name)
     else:
-        logging.info(basic_logging)
+        log_handler.log_default(step_name)
 
 def log_step(func):
     def wrapper(driver, *args, **kwargs):

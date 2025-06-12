@@ -72,6 +72,8 @@ pages:
                 XPATH: "//button[@id='continue-shopping']"
             remove_item_button:
                 XPATH: "//button[@id='remove-sauce-labs-bike-light']"
+            cart_item:
+                XPATH: "//div[@class='cart_item']"
         url: "cart.html"
     CheckoutOne:
         validation:

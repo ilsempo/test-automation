@@ -19,3 +19,8 @@ def user_is_in_page(driver, page, is_internal=False):
     url = get_xpath(page, validation=True)
     current_url = driver.current_url
     assert url[1] in current_url
+
+@log_step
+def element_present_in_page(driver, page, locator):
+    locators = get_xpath(page)
+    assert safe_find_element(driver, By.XPATH, locators[locator]).is_displayed()
