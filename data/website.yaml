@@ -55,6 +55,8 @@ pages:
                 XPATH: "//option[@value='lohi']"
             sort_hilo:
                 XPATH: "//option[@value='hilo']"
+            first_element:
+                XPATH: "(//div[contains(@class, 'inventory_item_name ')])[1]"
         url: "inventory.html"
     Cart:
         validation:
@@ -75,7 +77,7 @@ pages:
             cart_item:
                 XPATH: "//div[@class='cart_item']"
         url: "cart.html"
-    CheckoutOne:
+    Checkout-step-one:
         validation:
             checkout_title:
                 XPATH: "//span[contains(@class, 'title') and contains(@data-test, 'title')]"
@@ -94,7 +96,7 @@ pages:
             continue_checkout:
                 XPATH: "//input[@id='continue']"
         url: "checkout-step-one.html"
-    CheckoutTwo:
+    Checkout-step-two:
         validation:
             qty_element:
                 XPATH: "//div[contains(@class,'cart_quantity_label') and contains(@data-test, 'cart-quantity-label')]"
@@ -121,7 +123,7 @@ pages:
             cancel_button:
                 XPATH: "//button[contains(@class, 'cart_cancel_link') and contains(@data-test, 'cancel')]"
         url: "checkout-step-two.html"
-    InventoryDetail:
+    Inventory-item:
         validation:
             inventory_detail_img:
                 XPATH: "//img[@class='inventory_details_img']"

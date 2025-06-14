@@ -14,7 +14,7 @@ class TestBuying:
         login(driver)
         add_products_to_cart(driver)
         go_to_cart(driver)
-        user_clicks(driver, "Cart", "checkout_button")
+        user_clicks(driver, "checkout_button")
         fill_form_with_data(driver, {
         "first_name_input": "first_name",
         "last_name_input" : "last_name",
@@ -31,7 +31,7 @@ class TestBuying:
         login(driver, "problem")
         add_products_to_cart(driver)
         go_to_cart(driver)
-        user_clicks(driver, "Cart", "checkout_button")
+        user_clicks(driver, "checkout_button")
         fill_form_with_data(driver, {
         "first_name_input": "first_name",
         "last_name_input" : "last_name",
@@ -48,11 +48,11 @@ class TestBuying:
         login(driver)
         add_products_to_cart(driver)
         go_to_cart(driver)
-        user_clicks(driver, "Cart", "checkout_button")
+        user_clicks(driver, "checkout_button")
         fill_form_with_data(driver, {
         "first_name_input": "first_name",
         "last_name_input" : "last_name",
         "postal_code_input" : "postal_code"
         })
-        user_clicks(driver, "CheckoutTwo", "cancel_button")
+        user_clicks(driver, "cancel_button")
         user_is_in_page(driver, "Cart")

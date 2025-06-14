@@ -36,6 +36,11 @@ def get_message(key):
     message = data['message'][key]
     return message
 
+def get_page(driver):
+    url = driver.current_url
+    page = url.split("/")[-1].split("?")[0].split(".")[0].capitalize()
+    return page
+
 def safe_find_element(driver, by, locator):
     try:
         elements = WebDriverWait(driver, 15).until(

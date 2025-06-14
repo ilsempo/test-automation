@@ -12,10 +12,10 @@ class TestInventory:
         Scenario: User sorts items in inventory with different criteria
         """
         login(driver)
-        user_sorts_by(driver, "Inventory", "sort_za")
-        user_sorts_by(driver, "Inventory", "sort_az")
-        user_sorts_by(driver, "Inventory", "sort_hilo")
-        user_sorts_by(driver, "Inventory", "sort_lohi")
+        user_sorts_by(driver, "sort_za")
+        user_sorts_by(driver, "sort_az")
+        user_sorts_by(driver, "sort_hilo")
+        user_sorts_by(driver, "sort_lohi")
 
     @pytest.mark.access_detail
     def test_user_access_to_item_detail(self, driver):
@@ -23,8 +23,8 @@ class TestInventory:
         Scenario: User enters a random item detail page
         """
         login(driver)
-        user_clicks(driver, "Inventory", "item_name")
-        page_loads(driver, "InventoryDetail")
+        user_clicks(driver, "item_name")
+        page_loads(driver, "Inventory-item")
     
     @pytest.mark.add_to_cart
     def test_user_add_product_to_cart(self, driver):
@@ -32,6 +32,6 @@ class TestInventory:
         Scenario: User adds a random product to cart
         """
         login(driver)
-        user_clicks(driver, "Inventory", "add_to_cart_buttons")
+        user_clicks(driver, "add_to_cart_buttons")
         go_to_cart(driver)
-        element_present_in_page(driver, "Cart", "cart_item")
+        element_present_in_page(driver, "cart_item")

@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from utils.utils import get_xpath, get_message, log_step, safe_find_element
+from utils.utils import get_xpath, get_message, log_step, safe_find_element, get_page
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -21,6 +21,6 @@ def user_is_in_page(driver, page, is_internal=False):
     assert url[1] in current_url
 
 @log_step
-def element_present_in_page(driver, page, locator):
-    locators = get_xpath(page)
+def element_present_in_page(driver, locator, is_internal=False):
+    locators = get_xpath(get_page(driver))
     assert safe_find_element(driver, By.XPATH, locators[locator]).is_displayed()

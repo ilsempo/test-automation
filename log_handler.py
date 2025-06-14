@@ -1,7 +1,7 @@
 import logging
 
 def log_user_sorts_by(args, step_name):
-    logging.info(f"\033[92m{step_name} \033[0m\033[36m-> {args[1]}\033[0m")
+    logging.info(f"\033[92m{step_name} \033[0m\033[36m-> {args[0]}\033[0m")
 
 def log_fill_form(args, step_name):
     logging.info(f"\033[92m{step_name}\033[0m")
@@ -14,7 +14,7 @@ def log_fill_form(args, step_name):
         logging.info(f"\033[36m   | {key_string} -> {value_string} |\033[0m")
 
 def log_user_clicks(args, step_name):
-    logging.info(f"\033[92m{step_name}\033[0m\033[36m {args[1]}\033[0m\033[92m element\033[0m")
+    logging.info(f"\033[92m{step_name}\033[0m\033[36m {args[0]}\033[0m\033[92m element\033[0m")
 
 def log_login(args, step_name):
     user = args[0] if args else "valid"
@@ -23,8 +23,11 @@ def log_login(args, step_name):
 def log_message(args, step_name):
     logging.info(f"\033[36m{args[0]}\033[0m\033[92m {step_name}\033[0m")
 
-def element_present(args, step_name):
-    logging.info(f"\033[36m{args[1]}\033[0m\033[92m {step_name}\033[0m")
+def log_element_present(args, step_name):
+    logging.info(f"\033[36m{args[0]}\033[0m\033[92m {step_name}\033[0m")
+
+def log_user_access_page(args, step_name):
+    logging.info(f"\033[92m{step_name}\033[0m\033[36m {args[0]}\033[0m\033[92m page by clicking\033[0m\033[36m {args[1]}\033[0m\033[92m element\033[0m")
 
 def log_default(step_name):
     logging.info(f"\033[92m{step_name}\033[0m")
@@ -35,6 +38,7 @@ step_handlers = {
     "user_clicks": log_user_clicks,
     "login": log_login,
     "message_is_displayed": log_message,
-    "element_present_in_page": element_present
+    "element_present_in_page": log_element_present,
+    "user_access_page": log_user_access_page
 }
 

@@ -1,6 +1,6 @@
 import pytest
 from steps.action_steps import logout, user_clicks
-from steps.navigation_steps import login
+from steps.navigation_steps import login, user_access_page
 
 @pytest.mark.login
 class TestLogin:
@@ -25,5 +25,5 @@ class TestLogin:
         Scenario: User logs in and out
         """
         login(driver)
-        user_clicks(driver, "Inventory", "item_name")
+        user_clicks(driver, "item_name")
         logout(driver)
