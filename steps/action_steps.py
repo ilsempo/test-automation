@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from utils.utils import get_xpath, get_user_info, log_step, safe_find_element, safe_is_displayed, get_page
+from utils.context import context
 from steps.validation_steps import page_loads
 import random
 
@@ -35,7 +36,8 @@ def user_clicks(driver, element, is_internal=False):
         element_to_click.click()
 
 @log_step
-def user_sorts_by(driver, criteria):
+def user_sorts_by(criteria):
+    driver = context.driver
     locators = get_xpath(get_page(driver))
     user_clicks(driver, "sort_select", is_internal=True)
     user_clicks(driver, criteria, is_internal=True)

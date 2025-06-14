@@ -2,6 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from utils.context import context
 import logging
 
 def pytest_addoption(parser):
@@ -37,4 +38,10 @@ def driver(request):
 
 @pytest.fixture(autouse=True)
 def print_test_name(request):
-    logging.info(f"\033[90m>> Executing test: {request.node.name}\033[0m")
+    logging.info(f"\033[90m>> Executing test: {request.node.name}\033[0m\n")
+
+@pytest.fixture(autouse=True)
+def manage_driver_context(driver):
+    context.driver = driver
+    yield
+    context.driver = None

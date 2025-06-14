@@ -70,11 +70,11 @@ def logging_adjustments(step_name, args):
         log_handler.log_default(step_name)
 
 def log_step(func):
-    def wrapper(driver, *args, **kwargs):
+    def wrapper(*args, **kwargs):
         step_name = func.__name__
         is_internal = kwargs.get("is_internal")
         try:
-            func(driver, *args, **kwargs)
+            func(*args, **kwargs)
             if not is_internal:
                 logging_adjustments(step_name, args)
         except Exception as e:
