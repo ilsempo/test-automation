@@ -1,7 +1,7 @@
 import pytest
 from steps.action_steps import user_sorts_by, user_clicks
 from steps.navigation_steps import login, go_to_cart
-from steps.validation_steps import page_loads, element_present_in_page
+from steps.validation_steps import page_loads, element_present_in_page, user_is_in_page
 
 @pytest.mark.inventory
 class TestInventory:
@@ -12,6 +12,7 @@ class TestInventory:
         Scenario: User sorts items in inventory with different criteria
         """
         login(driver)
+        user_is_in_page(driver, "Inventory")
         user_sorts_by(driver, "sort_za")
         user_sorts_by(driver, "sort_az")
         user_sorts_by(driver, "sort_hilo")

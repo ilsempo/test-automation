@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 from utils.utils import get_xpath, log_step, safe_find_element, get_user_info
 from steps.validation_steps import page_loads, user_is_in_page, message_is_displayed
 from steps.action_steps import user_clicks
-import logging
 
 @log_step
 def go_to_cart(driver):
