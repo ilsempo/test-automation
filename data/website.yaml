@@ -131,4 +131,6 @@ pages:
                 XPATH: "//div[contains(@class, 'inventory_details_name')]"
             add_to_cart_button: 
                 XPATH: "//button[@id='add-to-cart']"
+        locators:
+            <<: *common_locators
         url: "inventory-item.html"

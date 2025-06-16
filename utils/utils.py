@@ -3,6 +3,7 @@ import logging
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from utils.context import context
 import time
 import log_handler
 
@@ -15,9 +16,10 @@ def get_website():
     with open("data/website.yaml", "r", encoding="utf-8") as file:
         data = yaml.load(file, Loader=yaml.FullLoader)
         return data
-    
-def get_xpath(page_name, validation=False):
+
+def get_xpath(page=None, validation=False):
     website = get_website()
+    page_name = page or get_page() or "Login"
     if not validation:
         page_locators = website["pages"][page_name]["locators"]
         xpaths = {key : value["XPATH"] for key, value in page_locators.items()}
@@ -26,6 +28,12 @@ def get_xpath(page_name, validation=False):
         url = website["pages"][page_name]["url"]
         xpaths = (set(path["XPATH"] for path in page_validation.values() if "XPATH" in path), url)
     return xpaths
+
+def get_page():
+    driver = context.driver
+    url = driver.current_url
+    page = url.split("/")[-1].split("?")[0].split(".")[0].capitalize()
+    return page
 
 def get_user_info(user_type):
     data = get_data()
@@ -36,12 +44,8 @@ def get_message(key):
     message = data['message'][key]
     return message
 
-def get_page(driver):
-    url = driver.current_url
-    page = url.split("/")[-1].split("?")[0].split(".")[0].capitalize()
-    return page
-
-def safe_find_element(driver, by, locator):
+def safe_find_element(by, locator):
+    driver = context.driver
     try:
         elements = WebDriverWait(driver, 15).until(
             EC.presence_of_all_elements_located((by, locator))

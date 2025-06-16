@@ -3,6 +3,7 @@ from steps.action_steps import user_sorts_by, user_clicks
 from steps.navigation_steps import login, go_to_cart
 from steps.validation_steps import page_loads, element_present_in_page, user_is_in_page
 
+@pytest.mark.regression
 @pytest.mark.inventory
 class TestInventory:
 
@@ -22,18 +23,18 @@ class TestInventory:
         user_sorts_by("sort_lohi")
 
     @pytest.mark.access_detail
-    def test_user_access_to_item_detail(self, driver):
+    def test_user_access_to_item_detail(self):
         """
         Scenario: User enters a random item detail page
         """
-        user_clicks(driver, "item_name")
-        page_loads(driver, "Inventory-item")
+        user_clicks("item_name")
+        page_loads("Inventory-item")
     
     @pytest.mark.add_to_cart
-    def test_user_add_product_to_cart(self, driver):
+    def test_user_add_product_to_cart(self):
         """
         Scenario: User adds a random product to cart
         """
-        user_clicks(driver, "add_to_cart_buttons")
-        go_to_cart(driver)
-        element_present_in_page(driver, "cart_item")
+        user_clicks("add_to_cart_buttons")
+        go_to_cart()
+        element_present_in_page("cart_item")
