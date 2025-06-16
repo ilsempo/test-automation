@@ -32,6 +32,14 @@ def log_user_access_page(args, step_name):
 def log_user_is_in_page(args, step_name):
     logging.info(f"\033[92m{step_name}\033[0m\033[36m {args[0]}\033[0m")
 
+def log_switch_tab(args, step_name):
+    logging.info(f"\033[92m{step_name}\033[0m\033[36m -> {args[0]}\033[0m")
+
+def log_url_external(args, step_name):
+    from utils.utils import get_url
+    url_to_log = get_url(args[0])
+    logging.info(f"\033[92m{step_name}\033[0m\033[36m -> {url_to_log}\033[0m")
+
 def log_default(step_name):
     logging.info(f"\033[92m{step_name}\033[0m")
 
@@ -43,6 +51,8 @@ step_handlers = {
     "message_is_displayed": log_message,
     "element_present_in_page": log_element_present,
     "user_access_page": log_user_access_page,
-    "user_is_in_page": log_user_is_in_page
+    "user_is_in_page": log_user_is_in_page,
+    "user_switches_to_tab": log_switch_tab,
+    "validate_external_url": log_url_external
 }
 

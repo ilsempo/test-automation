@@ -41,8 +41,13 @@ def get_user_info(user_type):
 
 def get_message(key):
     data = get_data()
-    message = data['message'][key]
+    message = data["message"][key]
     return message
+
+def get_url(key):
+    data = get_data()
+    url = data["urls"][key]
+    return url
 
 def safe_find_element(by, locator):
     driver = context.driver

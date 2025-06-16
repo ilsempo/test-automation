@@ -45,3 +45,7 @@ def manage_driver_context(driver):
     context.driver = driver
     yield
     context.driver = None
+
+@pytest.fixture(autouse=True)
+def original_tabs(driver):
+    context.original_tabs = driver.window_handles.copy()

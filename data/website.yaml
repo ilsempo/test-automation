@@ -3,7 +3,7 @@ common_locators: &common_locators
         XPATH: "//li[@class='social_linkedin']/a"
     social_facebook:
         XPATH: "//li[@class='social_facebook']/a"
-    social_twiter:
+    social_twitter:
         XPATH: "//li[@class='social_twitter']/a"
     app_logo:
         XPATH: "//div[@class='app_logo']"

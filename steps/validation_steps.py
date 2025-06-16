@@ -1,9 +1,9 @@
 from selenium.webdriver.common.by import By
-from utils.utils import get_xpath, get_message, log_step, safe_find_element, get_page
+from utils.utils import get_xpath, get_message, log_step, safe_find_element, get_url
 from utils.context import context
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import logging
+import time
 
 @log_step
 def page_loads(page_name, is_internal=False):
@@ -31,6 +31,20 @@ def element_present_in_page(locator, is_internal=False):
 
 @log_step
 def new_tab_appears():
+    original_tabs = context.original_tabs
     driver = context.driver
-    original_tabs = driver.window_handles
-    logging.info(original_tabs)
+    new_tabs = driver.window_handles
+    assert len(new_tabs) > len(original_tabs)
+    for tab in new_tabs:
+        if tab not in original_tabs:
+            driver.switch_to.window(tab)
+            WebDriverWait(driver, 10).until(
+            lambda d: d.execute_script("return document.readyState") == "complete" 
+            and d.title.strip() != "")
+            driver.switch_to.window(original_tabs[0])
+
+@log_step
+def validate_external_url(url_to_validate):
+    driver = context.driver
+    url = get_url(url_to_validate)
+    assert driver.current_url == url

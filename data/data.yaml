@@ -27,3 +27,7 @@ message:
     locked_user_message: "Epic sadface: Sorry, this user has been locked out."
     success_buy_message: "Thank you for your order!"
     last_name_missing: "Error: Last Name is required"
+urls:
+    twitter_saucelabs: "https://x.com/saucelabs"
+    facebook_saucelabs: "https://www.facebook.com/saucelabs"
+    linkedin_saucelabs: "https://www.linkedin.com/company/sauce-labs/"
