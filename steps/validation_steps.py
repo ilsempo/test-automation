@@ -3,7 +3,6 @@ from utils.utils import get_xpath, get_message, log_step, safe_find_element, get
 from utils.context import context
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
 @log_step
 def page_loads(page_name, is_internal=False):
